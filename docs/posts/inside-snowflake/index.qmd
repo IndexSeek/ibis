@@ -1,0 +1,65 @@
+---
+title: "The Ibis flies inside Snowflake"
+author: "Phillip Cloud and Tyler White"
+date: "2024-06-17"
+categories:
+    - blog
+    - snowflake
+    - ecosystem
+    - new feature
+---
+
+Ibis allows you to transform, analyze, and prepare data where it lives, with 
+the performance being as powerful as the backend you're connected to. But what 
+happens if Ibis is running… inside the backend you're connected to? 
+
+In this post, we will discuss how we got Ibis running inside Snowflake on a 
+virtual warehouse. 
+
+** Part of the first sentence came from: **
+https://ibis-project.org/why#ibis-for-organizations
+** I was having trouble coming up with a perfect opener. **
+
+## But first -- Why would we even want to do this? 
+We believe it would be helpful for users to take their new or existing Ibis 
+code and use it directly within Snowflake stored procedures, 
+Streamlit-in-Snowflake applications, the Native App framework, or even the 
+new notebook development interface. This allows developers to switch between 
+a local execution engine during development and efficiently deploy and 
+operationalize their code on Snowflake. 
+
+But this isn't without its challenges; there were a few things we needed to 
+figure out, and these are the questions we will answer throughout the post.
+
+- How can we get an Ibis connection to Snowflake - from in Snowflake?
+- If the Snowflake Anaconda channel does not include Ibis, how can we use it?
+- How are we going to test this to ensure it works?
+
+## Getting the Ibis connection
+
+** incomplete **
+
+I think here we can talk about the new `from_snowpark` method. I would also 
+like to emphasize that it is convienent to go between both Snowpark and Ibis
+for performing specific Snowflake operations. 
+
+## Uploading third-party packages
+
+** incomplete ** 
+
+I think here we can talk about the `add_import` method on the Snowpark Session 
+class in combination with copying the necessary modules directory tree with 
+`shutil`. 
+
+I am actually working on a solution to stage these modules within the IBIS_UDFS
+catalog (database, in Snowflake terminology) to make it easier to reuse these 
+modules in Snowflake. 
+
+## Testing!
+
+** incomplete **
+
+I think it's really cool that we're able to test that a Snowflake stored 
+procedure written in Ibis works as expected in CI. While the `from_snowpark`
+feature is still experimental, the successful tests we've run so far are
+encouraging.
