@@ -1429,6 +1429,20 @@ def execute_array_all(op, **kw):
     return pl.when(no_nulls.list.len() == 0).then(None).otherwise(no_nulls.list.all())
 
 
+@translate.register(ops.ArrayIndex)
+def execute_array_index(op, **kw):
+    arg = translate(op.arg, **kw)
+    return arg.list.get(translate(op.index, **kw))
+
+
+@translate.register(ops.ArraySlice)
+def execute_array_slice(op, **kw):
+    arg = translate(op.arg, **kw)
+    start = translate(op.start, **kw)
+    stop = translate(op.stop, **kw)
+    return arg.list.slice(start, stop)
+
+
 @translate.register(ops.GroupConcat)
 def execute_group_concat(op, **kw):
     arg = translate(op.arg, **kw)
