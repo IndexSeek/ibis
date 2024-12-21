@@ -1,0 +1,63 @@
+---
+title: "Regression metrics on the backend"
+author: "Tyler White"
+date: "2024-12-20"
+image: thumbnail.png
+categories:
+    - blog
+    - machine learning
+    - portability
+abstract: |
+    A review of regression models, metrics used to evaluate them, and corresponding
+    metric calculations with Ibis.
+---
+
+In a previous post, we explored classification models and common evaluation metrics
+used to assess their performance. We also covered how to calculate these metrics using
+Ibis. This time, we will apply the same approach to regression models.
+
+## Regression in Machine Learning
+
+Regression involves predicting a continuous outcome based on one or more input
+features. For instance, a regression model might predict house prices based on features
+like square footage, number of bedrooms, or location.
+
+Unlike classification, where outputs are categorical (e.g., spam or not spam),
+regression outputs a numerical value. This necessitates evaluation metrics that
+quantify how close the predictions are to the actual values.
+
+## Model evaluation metrics for regression
+
+Evaluating a regression model involves quantifying its error—how far off its
+predictions are from the actual values. Below, we’ll outline and compute five common
+regression metrics.
+
+1. Mean Absolute Percentage Error
+The average percentage error between predicted and actual values. Lower values
+indicate better performance.
+
+2. Mean Absolute Error (MAE)
+The average of the absolute differences between predicted and actual values. This
+metric gives equal weight to all errors, making it easy to interpret.
+
+3. R-squared Score (R²)
+The proportion of variance in the actual values explained by the model. An R² value of
+1 indicates perfect predictions, while 0 indicates no predictive power.
+
+4. Root Mean Squared Error (RMSE)
+The square root of the average squared differences between predicted and actual values.
+RMSE penalizes larger errors more than MAE, making it sensitive to outliers.
+
+5. Mean Squared Error (MSE)
+The average of the squared differences between predicted and actual values. Like RMSE,
+MSE penalizes large errors more than small ones.
+
+## Conclusion
+
+By pushing the computation down to the backend, the performance is as powerful as the
+backend we're connected to. This capability allows us to easily scale to different
+backends without modifying any code.
+
+We hope you give this a try and let us know how it goes. If you have any questions or
+feedback, please reach out to us on [GitHub](https://github.com/ibis-project) or
+[Zulip](https://ibis-project.zulipchat.com/).
