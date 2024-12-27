@@ -1256,6 +1256,44 @@ def execute_union(op, **kw):
     return result
 
 
+@translate.register(ops.Intersection)
+def execute_intersection(op, **kw):
+    with pl.SQLContext(
+        frames={
+            "left": translate(op.left, **kw),
+            "right": translate(op.right, **kw),
+        }
+    ) as ctx:
+        sql = (
+            sg.select(STAR)
+            .from_(sg.to_identifier("left", quoted=True))
+            .intersect(sg.select(STAR).from_(sg.to_identifier("right", quoted=True)))
+        )
+        result = ctx.execute(sql.sql())
+    if op.distinct is True:
+        return result.unique()
+    return result
+
+
+@translate.register(ops.Difference)
+def execute_difference(op, **kw):
+    with pl.SQLContext(
+        frames={
+            "left": translate(op.left, **kw),
+            "right": translate(op.right, **kw),
+        }
+    ) as ctx:
+        sql = (
+            sg.select(STAR)
+            .from_(sg.to_identifier("left", quoted=True))
+            .except_(sg.select(STAR).from_(sg.to_identifier("right", quoted=True)))
+        )
+        result = ctx.execute(sql.sql())
+    if op.distinct is True:
+        return result.unique()
+    return result
+
+
 @translate.register(ops.Hash)
 def execute_hash(op, **kw):
     # polars' hash() returns a uint64, but we want to return an int64
